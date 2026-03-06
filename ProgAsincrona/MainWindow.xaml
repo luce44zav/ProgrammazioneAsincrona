@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProgAsincrona"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="400" Width="700">
     <Grid>
+        <Button x:Name="btnGeneraLettere" Content="Genera lettere casuali" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top" Height="60" Width="130" Click="btnGeneraLettere_Click"/>
+        <Button x:Name="btnStampaLettere" Content="Stampa lettere casuali" HorizontalAlignment="Left" Margin="350,65,0,0" VerticalAlignment="Top" Height="60" Width="130" Click="btnStampaLettere_Click"/>
         
+        <Label x:Name="lblStampaLettere" Content="" HorizontalAlignment="Left" Margin="350,167,0,0" VerticalAlignment="Top" Height="100" Width="200"/>
+        <Label x:Name="lblLettereCasuali" Content="" HorizontalAlignment="Left" Margin="86,0,0,0" VerticalAlignment="Center" Height="50" Width="80"/>
+
     </Grid>
 </Window>
