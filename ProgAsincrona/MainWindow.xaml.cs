@@ -1,19 +1,10 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProgAsincrona
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -22,7 +13,9 @@ namespace ProgAsincrona
         }
 
         Random random = new Random();
-        List<char> lettere = new List<char>();
+        List<char> lettere = new List<char>(); 
+        string parolaCorrente = ""; 
+
         private async void btnGeneraLettere_Click(object sender, RoutedEventArgs e)
         {
             while (true)
@@ -30,16 +23,44 @@ namespace ProgAsincrona
                 int numero = random.Next(0, 26);
                 char lettera = (char)('A' + numero);
                 lblLettereCasuali.Content = lettera.ToString();
+
                 lettere.Add(lettera);
+
                 await Task.Delay(200);
             }
         }
 
         private void btnStampaLettere_Click(object sender, RoutedEventArgs e)
         {
-            char letteraDaStampare = lettere[lettere.Count - 1];
-            //lblStampaLettere.Content = letteraDaStampare.ToString(); se faccio così ogni volta che si clicca la lettera viene sovrascritta
-            lblStampaLettere.Content += letteraDaStampare.ToString();
+            //prendo lunghezza dalla textbox
+            int lunghezza;
+            if (int.TryParse(txtLunghezza.Text, out lunghezza))
+            {
+                //la lunghezza non può essere minre o uguale a 0 quindi fa vedere la message box
+                if(lunghezza <= 0)
+                {
+                    MessageBox.Show("Inserisci un numero valido");
+                    return;
+                }
+
+                //sorteggio la lettera dalla lista
+                char letteraSorteggiata = lettere[lettere.Count - 1];
+
+                parolaCorrente += letteraSorteggiata;
+                lblStampaLettere.Content = parolaCorrente;
+
+                if (parolaCorrente.Length >= lunghezza)
+                {
+                    listboxParole.Items.Add(parolaCorrente);
+
+                    parolaCorrente = "";
+                    lblStampaLettere.Content = ""; 
+                }
+            }
+            else
+            {
+                MessageBox.Show("Inserisci un numero valido");
+            }
         }
     }
 }
